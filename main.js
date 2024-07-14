@@ -1,6 +1,6 @@
 const myLibrary = [];
 
-// create book object
+// Create book object
 function Book(title, author, pages, haveRead) {
   this.title = title;
   this.author = author;
@@ -14,22 +14,41 @@ function getBookDetails() {
   const pages = document.querySelector("#pages").value;
   const haveRead = document.querySelector("#read").checked;
 
-  let newBook = new Book(title, author, pages, haveRead);
-  myLibrary.push(newBook);
-  updateShelf(myLibrary);
-  dialog.close(); // Close the dialog after adding the book
+  // Check if the form is valid
+  if (checkValidForm(title, author, pages)) {
+    let newBook = new Book(title, author, pages, haveRead);
+    myLibrary.push(newBook);
+    updateShelf(myLibrary);
+    clearForm();
+    dialog.close(); // Close the dialog after adding the book
+  } else {
+    alert("Please fill in all fields");
+  }
+}
+
+// Function to clear the form
+function clearForm() {
+  document.querySelector("#title").value = "";
+  document.querySelector("#author").value = "";
+  document.querySelector("#pages").value = "";
+  document.querySelector("#read").checked = false;
+}
+
+// Function to check if the form is valid
+function checkValidForm(title, author, pages) {
+  return title !== "" && author !== "" && pages !== "";
 }
 
 const dialog = document.querySelector("#add-book-dialog");
 const addBookBtn = document.querySelector("#add-book");
 const submit = document.querySelector("#submit");
 
-// opens the dialog modally
+// Opens the dialog modally
 addBookBtn.addEventListener("click", function () {
   dialog.showModal();
 });
 
-// add book to library array
+// Add book to library array
 submit.addEventListener("click", getBookDetails);
 
 const updateShelf = function (books) {
@@ -67,7 +86,7 @@ const updateShelf = function (books) {
     pagesElement.textContent = `Pages: ${book.pages}`;
     haveReadElement.textContent = `Status: ${book.haveRead}`;
     removeButton.textContent = "Remove from library";
-    updateButton.textContent = "Change status"
+    updateButton.textContent = "Change status";
 
     // Append elements to groupDiv
     groupDiv.appendChild(titleElement);
