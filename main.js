@@ -46,14 +46,14 @@ const updateShelf = function (books) {
 
     // Create elements for book info
     const titleElement = document.createElement("h3");
-    const removeButton = document.createElement("button");
     const authorElement = document.createElement("p");
     const pagesElement = document.createElement("p");
     const haveReadElement = document.createElement("p");
+    const removeButton = document.createElement("button");
+    const updateButton = document.createElement("button");
 
     // Set content of elements
     titleElement.textContent = book.title;
-    removeButton.textContent = "X";
     removeButton.addEventListener("click", function () {
       // Remove the book from the library
       const index = myLibrary.indexOf(book);
@@ -66,16 +66,19 @@ const updateShelf = function (books) {
     authorElement.textContent = `Author: ${book.author}`;
     pagesElement.textContent = `Pages: ${book.pages}`;
     haveReadElement.textContent = `Status: ${book.haveRead}`;
+    removeButton.textContent = "Remove from library";
+    updateButton.textContent = "Change status"
 
     // Append elements to groupDiv
     groupDiv.appendChild(titleElement);
-    groupDiv.appendChild(removeButton);
 
     // Append groupDiv and other elements to bookCard
     bookCard.appendChild(groupDiv);
     bookCard.appendChild(authorElement);
     bookCard.appendChild(pagesElement);
     bookCard.appendChild(haveReadElement);
+    bookCard.appendChild(removeButton);
+    bookCard.appendChild(updateButton);
 
     // Append bookCard to container
     bookContainer.appendChild(bookCard);
