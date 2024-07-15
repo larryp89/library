@@ -39,6 +39,15 @@ function checkValidForm(title, author, pages) {
   return title !== "" && author !== "" && pages !== "";
 }
 
+function toggleReadStatus(book) {
+  if (book.haveRead === "Read") {
+    book.haveRead = "Unread";
+  } else {
+    book.haveRead = "Read";
+  }
+  updateShelf(myLibrary); // Update the display after toggling the status
+}
+
 const dialog = document.querySelector("#add-book-dialog");
 const addBookBtn = document.querySelector("#add-book");
 const submit = document.querySelector("#submit");
@@ -61,6 +70,8 @@ const updateShelf = function (books) {
 
     // Create a group div for the title and remove button
     const groupDiv = document.createElement("div");
+    const buttonDiv = document.createElement("div");
+    buttonDiv.classList.add("button-div");
     groupDiv.classList.add("card-div");
 
     // Create elements for book info
@@ -82,22 +93,29 @@ const updateShelf = function (books) {
       // Update the shelf
       updateShelf(myLibrary);
     });
+
+    // Pass a function reference to addEventListener
+    updateButton.addEventListener("click", function () {
+      toggleReadStatus(book);
+    });
+
     authorElement.textContent = `Author: ${book.author}`;
     pagesElement.textContent = `Pages: ${book.pages}`;
     haveReadElement.textContent = `Status: ${book.haveRead}`;
     removeButton.textContent = "Remove from library";
     updateButton.textContent = "Change status";
 
-    // Append elements to groupDiv
+    // Append elements to groupDiv and button div
     groupDiv.appendChild(titleElement);
+    buttonDiv.appendChild(removeButton);
+    buttonDiv.appendChild(updateButton);
 
     // Append groupDiv and other elements to bookCard
     bookCard.appendChild(groupDiv);
     bookCard.appendChild(authorElement);
     bookCard.appendChild(pagesElement);
     bookCard.appendChild(haveReadElement);
-    bookCard.appendChild(removeButton);
-    bookCard.appendChild(updateButton);
+    bookCard.appendChild(buttonDiv);
 
     // Append bookCard to container
     bookContainer.appendChild(bookCard);
