@@ -36,7 +36,7 @@ function clearForm() {
 
 // Function to check if the form is valid
 function checkValidForm(title, author, pages) {
-  return title !== "" && author !== "" && pages !== "";
+  return title !== "" && author !== "" && pages !== "" && pages >= 0;
 }
 
 function toggleReadStatus(book) {
