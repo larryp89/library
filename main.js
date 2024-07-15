@@ -1,11 +1,21 @@
 const myLibrary = [];
 
 // Create book object
-function Book(title, author, pages, haveRead) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.haveRead = haveRead ? "Read" : "Unread";
+// function Book(title, author, pages, haveRead) {
+//   this.title = title;
+//   this.author = author;
+//   this.pages = pages;
+//   this.haveRead = haveRead ? "Read" : "Unread";
+// }
+
+// Create book class
+class Book {
+  constructor(title, author, pages, haveRead) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.haveRead = haveRead ? "Read" : "Unread";
+  }
 }
 
 function getBookDetails() {
